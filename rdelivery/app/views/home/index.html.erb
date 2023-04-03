@@ -1,0 +1,21 @@
+<% if user_signed_in? %>
+  <div> Welcome <%= current_user.email %> </div>
+  <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= button_to "Sign in", new_user_session_path %>
+<% end %>
+<div style="font-family: monospace">
+  <h1>Hello World!</h1>
+  <h2>..................../eeeeeeeeeeee\....................</h2>
+  <h2>....../RRRRRRRRRR\ /eeeeeeeeeeeeee\ /RRRRRRRRRR\......</h2>
+  <h2>...../RRRRRRRRRRRR\|eeeeeeeeeeeeee|/RRRRRRRRRRRR\.....</h2>
+  <h2>..../RRRRRRRRRRRRRR +++++++++++++++ RRRRRRRRRRRRRR\....</h2>
+  <h2>...|RRRRRRRRRRRRRR ################# RRRRRRRRRRRRRR|...</h2>
+  <h2>...|RRRRRRRRRRRRR ########## ######## RRRRRRRRRRRRR|...</h2>
+  <h2>....\RRRRRRRRRRR ########## ########## RRRRRRRRRRR/....</h2>
+  <h2>......|RRRRRRRRR ########### ######### RRRRRRRRR|......</h2>
+  <h2>......|RRRRRRRRRR #################### RRRRRRRRR|......</h2>
+  <h2>....................####### #######....................</h2>
+  <h2>.....................###### ######.....................</h2>
+  <h2>.....................##nnn# #nnn##.....................</h2>
+</div>
