@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+<h1>user show page</h1>
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+<!-- include others, etc. -->
+<%= link_to 'Edit Profile', edit_user_path(@user) %> |
+<%#= link_to "Settings", edit_user_path %>

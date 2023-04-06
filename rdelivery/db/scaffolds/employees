@@ -1,0 +1,1 @@
+rails generate scaffold employee user_id:integer address_id:integer phone:string email:string --skip
