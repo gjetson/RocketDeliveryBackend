@@ -1,9 +1,9 @@
-<%= form_with(model: employee) do |form| %>
-  <% if employee.errors.any? %>
+<%= form_with(model: customer) do |form| %>
+  <% if customer.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
+      <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
       <ul>
-        <% employee.errors.each do |error| %>
+        <% customer.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
@@ -23,7 +23,11 @@
   </div>
   <div>
     <%= form.label :email, style: "display: block" %>
-    <%= form.text_area :email %>
+    <%= form.text_field :email %>
+  </div>
+  <div>
+    <%= form.label :active, style: "display: block" %>
+    <%= form.check_box :active %>
   </div>
   <div>
     <%= form.submit %>
