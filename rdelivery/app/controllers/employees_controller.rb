@@ -34,7 +34,7 @@ ActiveModel::ForbiddenAttributesError
   end
 
   # PATCH/PUT /employees/1 or /employees/1.json
-  def updated
+  def update
     respond_to do |format|
       if @employee.update(employee_params)
         format.html { redirect_to employee_url(@employee), notice: "Employee was successfully updated." }
