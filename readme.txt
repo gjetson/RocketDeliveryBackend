@@ -1,5 +1,8 @@
+YouTube:
+https://youtu.be/k0coFkRWeVU
 
-
+GitHub:
+git@github.com:gjetson/RocketDeliveryBackend.git
 
 - What is SQL?
 SQL stands for structured query language. It was devised in the 70's and is a rather primitive 
