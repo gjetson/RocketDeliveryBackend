@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Couriers</h1>
+
+<div id="couriers">
+  <% @couriers.each do |courier| %>
+    <%= render courier %>
+    <p>
+      <%= link_to "Show this courier", courier %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New courier", new_courier_path %>

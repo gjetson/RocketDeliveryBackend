@@ -1,0 +1,2 @@
+module CourierStatusesHelper
+end

@@ -25,6 +25,10 @@
     <%= form.collection_select :order_status_id, OrderStatus.all, :id, :name %>
   </div>
   <div>
+    <%= form.label :courier_id, style: "display: block" %>
+    <%= form.number_field :courier_id %>
+  </div>
+  <div>
     <%= form.label :restaurant_rating, style: "display: block" %>
     <%= form.number_field :restaurant_rating %>
   </div>

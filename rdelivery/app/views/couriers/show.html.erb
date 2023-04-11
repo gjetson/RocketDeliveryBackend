@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @courier %>
+
+<div>
+  <%= link_to "Edit this courier", edit_courier_path(@courier) %> |
+  <%= link_to "Back to couriers", couriers_path %>
+
+  <%= button_to "Destroy this courier", @courier, method: :delete %>
+</div>

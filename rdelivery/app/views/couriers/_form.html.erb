@@ -1,0 +1,47 @@
+<%= form_with(model: courier) do |form| %>
+  <% if courier.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(courier.errors.count, "error") %> prohibited this courier from being saved:</h2>
+
+      <ul>
+        <% courier.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :user_id, style: "display: block" %>
+    <%= form.number_field :user_id %>
+  </div>
+
+  <div>
+    <%= form.label :address_id, style: "display: block" %>
+    <%= form.number_field :address_id %>
+  </div>
+
+  <div>
+    <%= form.label :courier_status, style: "display: block" %>
+    <%= form.number_field :courier_status %>
+  </div>
+
+  <div>
+    <%= form.label :phone, style: "display: block" %>
+    <%= form.text_field :phone %>
+  </div>
+
+  <div>
+    <%= form.label :email, style: "display: block" %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :active, style: "display: block" %>
+    <%= form.check_box :active %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
