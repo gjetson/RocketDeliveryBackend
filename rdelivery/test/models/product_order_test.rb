@@ -57,10 +57,8 @@ class ProductOrderTest < ActiveSupport::TestCase
     assert_not product_order.valid?, "Product unit cost should not be negative"
   end
 
-
-  # Bogus test commented out per coach's direction
   # test "cannot create two product_orders with the same product_id for the same order" do
-  #   product2 = Product.create(restaurant_id: 10, name: "Product 2", description: "Description 2", cost: 20)
+  #   product2 = Product.create(restaurant_id: 1, name: "Product 2", description: "Description 2", cost: 20)
   #   product_order1 = ProductOrder.create(order_id: @order.id, product_id: @product.id, product_quantity: 1, product_unit_cost: @product.cost)
   #   assert product_order1.valid?
   #   product_order2 = ProductOrder.new(order_id: @order.id, product_id: product2.id, product_quantity: 1, product_unit_cost: product2.cost)

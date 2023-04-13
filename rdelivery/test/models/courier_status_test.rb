@@ -13,6 +13,7 @@ class CourierStatusTest < ActiveSupport::TestCase
     required_columns = {
       name: :string
     }
+    
     required_columns.each do |column, data_type|
       assert_equal data_type, CourierStatus.column_for_attribute(column).type, "Wrong data type for #{column} column"
     end
@@ -22,6 +23,7 @@ class CourierStatusTest < ActiveSupport::TestCase
     required_attributes = {
       name: "Name"
     }
+
     required_attributes.each do |attribute, message|
       order_status = CourierStatus.new({ name: "free" })
       order_status[attribute] = ""

@@ -23,7 +23,8 @@ class CourierTest < ActiveSupport::TestCase
       courier_status_id: :integer,
       phone: :string,
       active: :boolean
-    } 
+    }
+    
     required_columns.each do |column, data_type|
       assert_equal data_type, Courier.column_for_attribute(column).type, "Wrong data type for #{column} column"
     end

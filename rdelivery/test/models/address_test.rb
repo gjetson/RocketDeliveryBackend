@@ -13,8 +13,9 @@ class AddressTest < ActiveSupport::TestCase
     required_columns = {
       street_address: :string,
       city: :string,
-       postal_code: :string
+      postal_code: :string
     }
+
     required_columns.each do |column, data_type|
       assert_equal data_type, Address.column_for_attribute(column).type, "Wrong data type for #{column} column"
     end

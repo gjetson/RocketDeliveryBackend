@@ -44,7 +44,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_11_131104) do
     t.integer "address_id", null: false
     t.string "phone", null: false
     t.string "email"
-    t.boolean "active", null: false
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_customers_on_address_id"
@@ -72,7 +72,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_11_131104) do
     t.integer "restaurant_id", null: false
     t.integer "customer_id", null: false
     t.integer "order_status_id", null: false
-    t.integer "courier_id", null: false
+    t.integer "courier_id"
     t.integer "restaurant_rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

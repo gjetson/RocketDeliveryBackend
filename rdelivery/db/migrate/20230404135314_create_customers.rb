@@ -5,7 +5,7 @@ class CreateCustomers < ActiveRecord::Migration[7.0]
       t.references :address, null: false, foreign_key: true
       t.string :phone, null: false
       t.string :email
-      t.boolean :active, null: false, defaulr:true
+      t.boolean :active, default:true
 
       t.timestamps
     end
