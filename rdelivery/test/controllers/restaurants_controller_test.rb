@@ -34,7 +34,7 @@ class RestaurantsControllerTest < ActionDispatch::IntegrationTest
 
   test "get restaurants with no parameters" do
     get "/api/restaurants"
-    assert_response :success
+    assert_response :ok
     assert_not_nil @controller.instance_variable_get(:@restaurants)
   end
 

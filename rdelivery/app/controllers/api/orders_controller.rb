@@ -15,6 +15,23 @@ module Api
             order.save
             return render json: {success: true }, status: :ok
          end
+         def index
+            type = params[:type]
+            user_id = params[:user_id]
+            if type == nil && user_id == nil
+                return render json: {error: "Both 'user type' and 'id' parameters are required" }, status: :bad_request
+            elseif type == nil
+                return render json: {error: "Missing type parameter" }, status: :unprocessable_entity
+            elseif user_id == nil
+                return render json: {error: "Missing id parameter" }, status: :unprocessable_entity
+            else
+                unless type.in?(["customer", "restaurant", "courier"])
+                    return render json: {error: "Invalid user type" }, status: :unprocessable_entity
+                end
+                array = Array.new
+                return render json: array, status: :ok
+            end
+         end
     end
 end
 
