@@ -15,22 +15,51 @@ module Api
             order.save
             return render json: {success: true }, status: :ok
          end
+
          def index
             type = params[:type]
-            user_id = params[:user_id]
-            if type == nil && user_id == nil
+            id = params[:user_id]
+            if type == nil && id == nil
                 return render json: {error: "Both 'user type' and 'id' parameters are required" }, status: :bad_request
             elseif type == nil
                 return render json: {error: "Missing type parameter" }, status: :unprocessable_entity
-            elseif user_id == nil
+            elseif id == nil
                 return render json: {error: "Missing id parameter" }, status: :unprocessable_entity
             else
                 unless type.in?(["customer", "restaurant", "courier"])
                     return render json: {error: "Invalid user type" }, status: :unprocessable_entity
                 end
-                array = Array.new
-                return render json: array, status: :ok
+                orders = Order.user_orders(type, id)
+                # return render json: orders, status: :ok
+                return render json: orders.map(&method(:format)), status: :ok
             end
+         end
+
+         private
+
+         def format(order)
+             {
+                id: order.id,
+                customer_id: order.customer.id,
+                customer_name: order.customer.user.name,
+                customer_address: order.customer.address.street_address,
+                restaurant_id: order.restaurant.id,
+                restaurant_name: order.restaurant.name,
+                restaurant_address: order.restaurant.address.street_address,
+                courier_id: order.courier&.id,
+                courier_name: order.courier&.user&.name,
+                status: order.order_status.name,
+                products: order.product_orders.map do |po|
+                {
+                    product_id: po.product.id,
+                    product_name: po.product.name,
+                    product_quantity: po.product_quantity,
+                    unit_cost: po.product_unit_cost,
+                    total_cost: (po.product_quantity * po.product_unit_cost)
+                }
+                end,
+                total_cost: order.total_cost
+             }
          end
     end
 end
