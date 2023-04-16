@@ -15,6 +15,32 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
     assert_routing({ path: '/api/orders', method: :get }, { controller: 'api/orders', action: 'index' })
   end
 
+  test "orders route exists and is a POST route" do
+    assert_routing({ path: '/api/order', method: :post }, { controller: 'api/orders', action: 'create' })
+  end
+
+  test "create order" do
+    user = User.create!(name: "User 6", email: "test6@test.com", password: "password")
+    address = Address.create!(street_address: "Street 6", city: "City 6", postal_code: "11116")
+    restaurant = Restaurant.create!(user: user, address: address, name: "Restaurant 6", phone: "123456", price_range: 2)
+    customer = Customer.create!(user: user, address: address, phone: "123456")
+    product = Product.create!(name: "Product 6", cost: 10, restaurant: restaurant)
+    product_2 = Product.create!(name: "Product 62", cost: 10, restaurant: restaurant)
+    order_status = OrderStatus.create!(name: "Order Status 6")
+    # courier_status = CourierStatus.create!(name: "free")
+    # courier = Courier.create!(user: user, address: address, phone: "123456", email: "test3@test.com")
+    # order = Order.create!(restaurant: restaurant, customer: customer, order_status: order_status, restaurant_rating: 4, courier: courier)
+    # product_order = ProductOrder.create!(product: product, order: order, product_quantity: 2, product_unit_cost: 300)
+
+
+    post "/api/order", headers: { "Content-Type": "application/json" }, params: { 
+      restaurant: restaurant.id, 
+      customer: customer.id,
+      order_status: order_status.id
+    }.to_json
+    assert_response :ok
+  end
+
   test "update order status to 'pending'" do
     post "/api/order/#{@order.id}/status", params: { status: "pending" }
     assert_response :success

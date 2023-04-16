@@ -10,9 +10,9 @@ class ApiControllerTest < ActionDispatch::IntegrationTest
     assert_equal({ success: true }.to_json, response.body)
   end
 
-  # test "post auth with invalid credentials" do
-  #   post "/api/login", headers: { "Content-Type": "application/json" }, params: { email: 'test@test.com', password: 'bad_password' }.to_json
-  #   assert_response :unauthorized
-  #   assert_equal({ success: false }.to_json, response.body)
-  # end
+  test "post auth with invalid credentials" do
+    post "/api/login", headers: { "Content-Type": "application/json" }, params: { email: 'test@test.com', password: 'bad_password' }.to_json
+    assert_response :unauthorized
+    assert_equal({ success: false }.to_json, response.body)
+  end
 end
