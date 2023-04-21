@@ -15,8 +15,16 @@ module Api
                 @restaurants  = Restaurant.rating_and_price(rating, price_range)
             else
                 @restaurants  = Restaurant.all
+                grouped = []
+                @restaurants.each do |r|
+                    ave_rating = Order.where(restaurant_id: r.id).average(:restaurant_rating)
+                    # puts ave_rating
+                    ave_rating = ave_rating.round(0)
+                    grouped.push({restaurant: r, ave_rating: ave_rating})
+                end
+                return render json: grouped, status: :ok
             end
-            render json: @restaurants ,status: :ok
+            render json: @restaurants , status: :ok
         end
     end
 end

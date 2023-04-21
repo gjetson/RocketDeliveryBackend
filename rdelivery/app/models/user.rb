@@ -3,7 +3,7 @@ class User < ApplicationRecord
     has_one :employee
     has_one :courier
     has_many :restaurants
-    validates :email, :password, presence: true
+    validates :name, :email, :password, presence: true
 
     # Include default devise modules. Others available are:
     # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
