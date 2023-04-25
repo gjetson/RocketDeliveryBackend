@@ -1,4 +1,6 @@
 class ProductOrdersController < ApplicationController
+  # skip_before_action :verify_authenticity_token
+
   before_action :set_product_order, only: %i[ show edit update destroy ]
 
   # GET /product_orders or /product_orders.json
