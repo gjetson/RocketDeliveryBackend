@@ -36,23 +36,13 @@ module Api
             end
          end
 
-        #  def create
-        #     json = JSON.parse(request.body.read)
-        #     restaurant = json["restaurant"]
-        #     customer = json["customer"]
-        #     order_status = json["order_status"]
-
-        #     order = Order.create!(restaurant_id: restaurant, customer_id: customer, order_status_id: order_status)
-        #     return render json: {success: true , id: order.id}, status: :ok
-        #  end
-
         # POST /api/order
         def create
             restaurant_id, customer_id, products = params.values_at(:restaurant_id, :customer_id, :products)
   
             # Validate required parameters
             unless restaurant_id.present? && customer_id.present? && products.present?
-                return render_400_error("Restaurant ID, customer ID, and products are required")
+                return render json: {error: "Restaurant ID, customer ID, and products are required" }, status: :bad_request
             end
   
             restaurant = Restaurant.find_by(id: restaurant_id)
@@ -60,14 +50,14 @@ module Api
   
             # Validate foreign keys exists
             unless restaurant && customer
-                return render_422_error("Invalid restaurant or customer ID")
+                return render json: {error: "Invalid restaurant or customer ID" }, status: :unprocessable_entity
             end
   
             order = Order.create!(restaurant_id: restaurant_id, customer_id: customer_id, order_status_id: OrderStatus.find_by(name: "pending")&.id)
   
             # Validate order
             unless order
-                return render_422_error("Failed to create order")
+                return render json: {error: "Failed to create order"}, status: :unprocessable_entity
             end
   
             # Validate and create product orders
@@ -76,7 +66,7 @@ module Api
           
                 unless product
                     order.destroy
-                    return render_422_error("Invalid product ID")
+                    return render json: {error: "Invalid product ID"}, status: :unprocessable_entity
                 end
     
                 order.product_orders.create!(product_id: product.id, product_quantity: product_params[:quantity].to_i, product_unit_cost: product.cost)

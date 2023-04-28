@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     post "order", to: "orders#create"
     post "login", to: "auth#index"
     post "order/:id/status", to: "orders#status"
+    get "account/:id", to: "auth#getAccount"
+    post "account/:id", to: "auth#updateAccount"
   end
   
   root to: 'home#index'

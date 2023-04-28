@@ -22,5 +22,86 @@ module Api
             end
             render json: {success: false}, status: :unauthorized
         end
+
+        def getAccount
+            id = params[:id]
+            type = params[:type]
+            if type == nil && id == nil
+                return render json: {error: "Both 'type' and 'id' parameters are required" }, status: :bad_request
+            elseif type == nil
+                return render json: {error: "Missing type parameter" }, status: :unprocessable_entity
+            elseif id == nil
+                return render json: {error: "Missing id parameter" }, status: :unprocessable_entity
+            else
+                unless type.in?(["customer", "courier"])
+                    return render json: {error: "Invalid type" }, status: :unprocessable_entity
+                end
+                user = User.find_by(id: id)
+                unless user.present?
+                    return render json: {error: "Invalid user ID" }, status: :unprocessable_entity
+                end
+                if type == "courier"
+                    courier = Courier.find_by(user_id: id)   
+                    if courier.present?
+                        return render json: {success: true, phone: courier.phone, email: courier.email}, status: :ok
+                    else
+                        return render json: {error: "Invalid user ID" }, status: :unprocessable_entity
+                    end
+                else 
+                    customer = Customer.find_by(user_id: id)
+                    if customer.present?
+                        return render json: {success: true, phone: customer.phone, email: customer.email}, status: :ok
+                    else
+                        return render json: {error: "Invalid user ID" }, status: :unprocessable_entity
+                    end
+                end
+                render json: {success: false}, status: :ok
+            end
+        end
+
+        def updateAccount
+            type, id, phone, email = params.values_at(:type, :id, :phone, :email)
+
+            # Validate required parameters
+            unless type.present? && id.present?
+                return render json: {error: "Type and ID are required"}, status: :bad_request
+            end
+            # Validate required parameters
+            unless phone.present? || email.present?
+                return render json: {error: "phone or email (or both) are required"}, status: :bad_request
+            end
+            unless type.in?(["customer", "courier"])
+                return render json: {error: "Invalid type" }, status: :unprocessable_entity
+            end
+            if type == "courier"
+                courier = Courier.find_by(user_id: id)   
+                if courier.present?
+                    if phone.present?
+                        courier.phone = phone
+                    end
+                    if email.present?
+                        courier.email = email
+                    end
+                    courier.save
+                    return render json: {success: true}, status: :ok
+                else
+                    return render json: {error: "Invalid user ID" }, status: :unprocessable_entity
+                end
+            else 
+                customer = Customer.find_by(user_id: id)
+                if customer.present?
+                    if phone.present?
+                        customer.phone = phone
+                    end
+                    if email.present?
+                        customer.email = email
+                    end
+                    customer.save
+                    return render json: {success: true}, status: :ok
+                else
+                    return render json: {error: "Invalid user ID" }, status: :unprocessable_entity
+                end
+            end
+        end
     end
 end
