@@ -43,14 +43,14 @@ module Api
                 if type == "courier"
                     courier = Courier.find_by(user_id: id)   
                     if courier.present?
-                        return render json: {success: true, phone: courier.phone, email: courier.email}, status: :ok
+                        return render json: {success: true, phone: courier.phone, email: courier.email, login: user.email}, status: :ok
                     else
                         return render json: {error: "Invalid user ID" }, status: :unprocessable_entity
                     end
                 else 
                     customer = Customer.find_by(user_id: id)
                     if customer.present?
-                        return render json: {success: true, phone: customer.phone, email: customer.email}, status: :ok
+                        return render json: {success: true, phone: customer.phone, email: customer.email, login: user.email}, status: :ok
                     else
                         return render json: {error: "Invalid user ID" }, status: :unprocessable_entity
                     end
