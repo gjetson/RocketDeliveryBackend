@@ -1,6 +1,9 @@
 module Api
     class OrdersController < ActionController::Base
         skip_before_action :verify_authenticity_token
+
+        include ApiHelper
+        
         def status
             status = params[:status]
             id = params[:id]
@@ -73,6 +76,7 @@ module Api
             end
   
             render json: format(order), status: :created
+            send_sms(order.customer.user.name, order.id)
         end
 
         private
